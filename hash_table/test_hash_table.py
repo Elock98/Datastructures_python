@@ -281,8 +281,105 @@ class TestHashTable(unittest.TestCase):
 
 #-------------------------------------------------------------------#
 
-    def test_remove(self):
-        pass
+    def test_remove_chaining(self):
+        # Given
+        table = HashTable(lambda x: 3, 5, True)
+        table._hash_table = [[],
+                             [],
+                             [],
+                             [("foo", 100), ("bar", 200)],
+                             [],
+                             [],
+                             [],
+                             [],
+                             [],
+                             []]
+
+        # When
+        table._remove_chaining("foo")
+
+        # Then
+        self.assertEqual(table._hash_table, [[],
+                                             [],
+                                             [],
+                                             [("bar", 200)],
+                                             [],
+                                             [],
+                                             [],
+                                             [],
+                                             [],
+                                             []])
+
+    def test_remove_chaining_not_in_table(self):
+        # Given
+        table = HashTable(lambda x: 3, 5, True)
+        table._hash_table = [[],
+                             [],
+                             [],
+                             [("foo", 100), ("bar", 200)],
+                             [],
+                             [],
+                             [],
+                             [],
+                             [],
+                             []]
+
+        # When
+        with self.assertRaises(Exception) as ex:
+            table._remove_chaining("baz")
+
+        # Then
+        self.assertEqual(str(ex.exception), "Key not in hash table!")
+        self.assertEqual(table._hash_table, [[],
+                                             [],
+                                             [],
+                                             [("foo", 100), ("bar", 200)],
+                                             [],
+                                             [],
+                                             [],
+                                             [],
+                                             [],
+                                             []])
+
+    def test_remove_linear(self):
+         # Given
+        table = HashTable(lambda x: 3, 5, False)
+        table._hash_table = [None,
+                             None,
+                             None,
+                             ("foo", 100),
+                             None]
+
+        # When
+        table._remove_linear("foo")
+
+        # Then
+        self.assertEqual(table._hash_table, [None,
+                                             None,
+                                             None,
+                                             None,
+                                             None])
+
+    def test_remove_linear_not_in_table(self):
+        # Given
+        table = HashTable(lambda x: 3, 5, False)
+        table._hash_table = [None,
+                             None,
+                             None,
+                             ("foo", 100),
+                             None]
+
+        # When
+        with self.assertRaises(Exception) as ex:
+            table._remove_linear("bar")
+
+        # Then
+        self.assertEqual(str(ex.exception), "Key not in hash table!")
+        self.assertEqual(table._hash_table, [None,
+                                             None,
+                                             None,
+                                            ("foo", 100),
+                                             None])
 
 #-------------------------------------------------------------------#
 

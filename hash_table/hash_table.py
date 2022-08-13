@@ -80,5 +80,33 @@ class HashTable:
                 raise ValueError("Key not in hash table!")
 
     def remove(self, key):
-        pass
-    
+        if self._chaining:
+            self._remove_chaining(key)
+        else:
+            self._remove_linear(key)
+
+    def _remove_chaining(self, key):
+        index = self._hash(key)
+
+        for pos, entry in enumerate(self._hash_table[index]):
+            if entry[0] == key:
+                del self._hash_table[index][pos]
+                return
+
+        raise ValueError("Key not in hash table!")
+
+    def _remove_linear(self, key):
+        index = start_index = self._hash(key)
+
+        while True:
+            if index == len(self._hash_table):
+                index = 0
+
+            if self._hash_table[index] != None and\
+                self._hash_table[index][0] == key:
+                self._hash_table[index] = None
+                return
+
+            index += 1
+            if index == start_index:
+                raise ValueError("Key not in hash table!")
