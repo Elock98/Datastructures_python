@@ -196,8 +196,88 @@ class TestHashTable(unittest.TestCase):
 
 #-------------------------------------------------------------------#
 
-    def test_get(self):
-        pass
+    def test_get_chaining(self):
+        # Given
+        table = HashTable(lambda x: 3, 5, True)
+        table._hash_table = [[],
+                             [],
+                             [],
+                             [("foo", 100), ("bar", 200)],
+                             [],
+                             [],
+                             [],
+                             [],
+                             [],
+                             []]
+
+        # When
+        value = table._get_chaining("bar")
+
+        # Then
+        self.assertEqual(value, 200)
+
+    def test_get_chaining_not_in_table(self):
+        # Given
+        table = HashTable(lambda x: 3, 5, True)
+        table._hash_table = [[],
+                             [],
+                             [],
+                             [("foo", 100)],
+                             [],
+                             []]
+
+        # When
+        with self.assertRaises(Exception) as ex:
+            value = table._get_chaining("bar")
+
+        # Then
+        self.assertEqual(str(ex.exception), "Key not in hash table!")
+
+    def test_get_linear(self):
+        # Given
+        table = HashTable(lambda x: 3, 5, False)
+        table._hash_table = [None,
+                             None,
+                             None,
+                             ("foo", 100),
+                             None]
+
+        # When
+        value = table._get_linear_probing("foo")
+
+        # Then
+        self.assertEqual(value, 100)
+
+    def test_get_linear_collision(self):
+        # Given
+        table = HashTable(lambda x: 3, 5, False)
+        table._hash_table = [("baz", 300),
+                             None,
+                             None,
+                             ("foo", 100),
+                             ("bar", 200)]
+
+        # When
+        value = table._get_linear_probing("baz")
+
+        # Then
+        self.assertEqual(value, 300)
+
+    def test_get_linear_not_in_table(self):
+        # Given
+        table = HashTable(lambda x: 3, 5, False)
+        table._hash_table = [None,
+                             None,
+                             None,
+                             ("foo", 100),
+                             None]
+
+        # When
+        with self.assertRaises(Exception) as ex:
+            value = table._get_linear_probing("bar")
+
+        # Then
+        self.assertEqual(str(ex.exception), "Key not in hash table!")
 
 #-------------------------------------------------------------------#
 

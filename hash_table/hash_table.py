@@ -50,7 +50,34 @@ class HashTable:
         return self._hash_function(key)
 
     def get(self, key):
-        pass
+        if self._chaining:
+            return self._get_chaining(key)
+        else:
+            return self._get_linear_probing(key)
+
+    def _get_chaining(self, key):
+        index = self._hash(key)
+
+        for entry in self._hash_table[index]:
+            if entry[0] == key:
+                return entry[1]
+
+        raise ValueError("Key not in hash table!")
+
+    def _get_linear_probing(self, key):
+        index = start_index = self._hash(key)
+
+        while True:
+            if index == len(self._hash_table):
+                index = 0
+
+            if self._hash_table[index] != None and\
+                self._hash_table[index][0] == key:
+                return self._hash_table[index][1]
+
+            index += 1
+            if index == start_index:
+                raise ValueError("Key not in hash table!")
 
     def remove(self, key):
         pass
