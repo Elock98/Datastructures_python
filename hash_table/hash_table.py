@@ -14,7 +14,11 @@ class HashTable:
         self._hash_function = hash_function
         self._table_langth = table_length
         self._chaining = chaining
-        self._hash_table = []
+
+        if self._chaining:
+            self._hash_table = [[]] * self._table_langth
+        else:
+            self._hash_table = [None] * self._table_langth
 
     def insert(self, key, value) -> None:
         pass

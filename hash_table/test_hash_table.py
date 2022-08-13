@@ -56,7 +56,7 @@ class TestHashTable(unittest.TestCase):
         self.assertEqual(table._hash_function, fun)
         self.assertEqual(table._table_langth, 5)
         self.assertEqual(table._chaining, True)
-        self.assertEqual(table._hash_table, [])
+        self.assertEqual(table._hash_table, [[]] * 5)
 
 #-------------------------------------------------------------------#
 
