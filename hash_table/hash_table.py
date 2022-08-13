@@ -16,7 +16,7 @@ class HashTable:
         self._chaining = chaining
 
         if self._chaining:
-            self._hash_table = [[]] * self._table_langth
+            self._hash_table = [[] for _ in range(self._table_langth)]
         else:
             self._hash_table = [None] * self._table_langth
 
