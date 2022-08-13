@@ -1,4 +1,5 @@
 import unittest
+import io
 
 from hash_table import HashTable
 from unittest.mock import patch
@@ -380,6 +381,38 @@ class TestHashTable(unittest.TestCase):
                                              None,
                                             ("foo", 100),
                                              None])
+
+#-------------------------------------------------------------------#
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_print_chained(self, mock_stdout):
+        # Given
+        table = HashTable(lambda x: 3, 5, True)
+        table._hash_table = [[],
+                             [],
+                             [("foo", 100), ("bar", 300)],
+                             [],
+                             []]
+
+        # When
+        table.print_hash_table()
+
+        # Then
+        self.assertEqual(mock_stdout.getvalue(),
+                            "[[], [], [('foo', 100), ('bar', 300)], [], []]\n")
+
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_print_linear(self, mock_stdout):
+        # Given
+        table = HashTable(lambda x: 3, 5, False)
+        table._hash_table = [None, None, ("foo", 100), None, None]
+
+        # When
+        table.print_hash_table()
+
+        # Then
+        self.assertEqual(mock_stdout.getvalue(),\
+                        "[None, None, ('foo', 100), None, None]\n")
 
 #-------------------------------------------------------------------#
 

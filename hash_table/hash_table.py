@@ -110,3 +110,6 @@ class HashTable:
             index += 1
             if index == start_index:
                 raise ValueError("Key not in hash table!")
+
+    def print_hash_table(self):
+        print(self._hash_table)

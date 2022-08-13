@@ -14,6 +14,8 @@ table1.insert("baz", lambda x: f"value given is {x}!")
 print(table1.get("foo"))
 print(table1.get("baz")(600))
 
+table1.print_hash_table()
+
 try:
     print(table1.get("bar"))
     table1.remove("bar")
@@ -33,6 +35,8 @@ table2.insert("baz", lambda x: f"value given is {x}!")
 print(table2.get("foo"))
 print(table2.get("oof"))
 print(table2.get("baz")(600))
+
+table2.print_hash_table()
 
 try:
     print(table2.get("oof"))
