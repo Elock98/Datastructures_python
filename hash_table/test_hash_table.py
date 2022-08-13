@@ -61,7 +61,126 @@ class TestHashTable(unittest.TestCase):
 #-------------------------------------------------------------------#
 
     def test_insert(self):
-        pass
+        # Given
+        table = HashTable(lambda key: len(key), 10)
+
+        # When
+        table.insert("foo", 100)
+
+        # Then
+        self.assertEqual(table._hash_table, [None,
+                                             None,
+                                             None,
+                                             ("foo", 100),
+                                             None,
+                                             None,
+                                             None,
+                                             None,
+                                             None,
+                                             None])
+
+    def test_insert_chaining(self):
+        # Given
+        table = HashTable(lambda key: len(key), 10, True)
+
+        # When
+        table._insert_chaining("foo", 100)
+
+        # Then
+        self.assertEqual(table._hash_table, [[],
+                                             [],
+                                             [],
+                                             [("foo", 100)],
+                                             [],
+                                             [],
+                                             [],
+                                             [],
+                                             [],
+                                             []])
+
+    def test_insert_chaining_collision(self):
+        # Given
+        table = HashTable(lambda key: len(key), 10, True)
+        table._hash_table = [[],
+                             [],
+                             [],
+                             [("foo", 100)],
+                             [],
+                             [],
+                             [],
+                             [],
+                             [],
+                             []]
+        # When
+        table._insert_chaining("bar", 200)
+
+        # Then
+        self.assertEqual(table._hash_table, [[],
+                                             [],
+                                             [],
+                                             [("foo", 100), ("bar", 200)],
+                                             [],
+                                             [],
+                                             [],
+                                             [],
+                                             [],
+                                             []])
+
+    def test_insert_linear_probing(self):
+        # Given
+        table = HashTable(lambda key: len(key), 10)
+
+        # When
+        table._insert_linear_probing("foo", 100)
+
+        # Then
+        self.assertEqual(table._hash_table, [None,
+                                             None,
+                                             None,
+                                             ("foo", 100),
+                                             None,
+                                             None,
+                                             None,
+                                             None,
+                                             None,
+                                             None])
+
+    def test_insert_linear_probing_collision(self):
+        # Given
+        table = HashTable(lambda key: len(key), 10)
+
+        # When
+        table._insert_linear_probing("foo", 100)
+        table._insert_linear_probing("bar", 200)
+
+        # Then
+        self.assertEqual(table._hash_table, [None,
+                                             None,
+                                             None,
+                                             ("foo", 100),
+                                             ("bar", 200),
+                                             None,
+                                             None,
+                                             None,
+                                             None,
+                                             None])
+
+    def test_insert_linear_probing_full(self):
+        # Given
+        table = HashTable(lambda key: len(key), 3)
+
+        # When
+        table._insert_linear_probing("foo", 100)
+        table._insert_linear_probing("bar", 200)
+        table._insert_linear_probing("baz", 300)
+        with self.assertRaises(Exception) as ex:
+            table._insert_linear_probing("faz", 400)
+
+        # Then
+        self.assertEqual(table._hash_table, [("foo", 100),
+                                             ("bar", 200),
+                                             ("baz", 300)])
+        self.assertEqual(str(ex.exception), "Hash table is full!")
 
 #-------------------------------------------------------------------#
 
@@ -74,6 +193,7 @@ class TestHashTable(unittest.TestCase):
 
         # Then
         self.assertEqual(index, 4)
+
 #-------------------------------------------------------------------#
 
     def test_get(self):

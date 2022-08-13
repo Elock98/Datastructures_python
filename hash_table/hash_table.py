@@ -21,7 +21,30 @@ class HashTable:
             self._hash_table = [None] * self._table_langth
 
     def insert(self, key, value) -> None:
-        pass
+        if self._chaining:
+            self._insert_chaining(key, value)
+        else:
+            self._insert_linear_probing(key, value)
+
+    def _insert_chaining(self, key, value) -> None:
+        index = self._hash(key)
+
+        self._hash_table[index].append((key, value))
+
+    def _insert_linear_probing(self, key, value) -> None:
+        index = start_index = self._hash(key)
+
+        while True:
+            if index == len(self._hash_table):
+                index = 0
+
+            if self._hash_table[index] == None:
+                self._hash_table[index] = (key, value)
+                break
+
+            index += 1
+            if index == start_index:
+                raise ValueError("Hash table is full!")
 
     def _hash(self, key) -> int:
         return self._hash_function(key)
