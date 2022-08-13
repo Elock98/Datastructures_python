@@ -24,7 +24,7 @@ class HashTable:
         pass
 
     def _hash(self, key) -> int:
-        pass
+        return self._hash_function(key)
 
     def get(self, key):
         pass

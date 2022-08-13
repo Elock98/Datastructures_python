@@ -66,8 +66,14 @@ class TestHashTable(unittest.TestCase):
 #-------------------------------------------------------------------#
 
     def test__hash(self):
-        pass
+        # Given
+        table = HashTable(lambda x: sum([ord(i)%5 for i in x]), 5)
 
+        # When
+        index = table._hash("foo")
+
+        # Then
+        self.assertEqual(index, 4)
 #-------------------------------------------------------------------#
 
     def test_get(self):
