@@ -1,4 +1,30 @@
+from __future__ import annotations
 
+class _Node:
+
+    def __init__(self, parent:_Node=None) -> None:
+
+        self._left_child = None
+        self._right_child = None
+        self._parent = parent
+
+    def set_left_child(self, child:_Node=None) -> None:
+        pass
+
+    def set_right_child(self, child:_Node=None) -> None:
+        pass
+
+    def set_parent(self, parent:_Node=None) -> None:
+        pass
+
+    def get_left_child(self) -> _Node:
+        pass
+
+    def get_right_child(self) -> _Node:
+        pass
+
+    def get_parent(self) -> _Node:
+        pass
 
 class BST:
 
