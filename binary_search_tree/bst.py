@@ -27,13 +27,13 @@ class _Node:
         self._parent = parent
 
     def get_left_child(self) -> _Node:
-        pass
+        return self._left_child
 
     def get_right_child(self) -> _Node:
-        pass
+        return self._right_child
 
     def get_parent(self) -> _Node:
-        pass
+        return self._parent
 
 class BST:
 

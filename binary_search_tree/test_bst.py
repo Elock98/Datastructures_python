@@ -180,6 +180,43 @@ class TestNode(unittest.TestCase):
 
 #-------------------------------------------------------------------#
 
+    def test_get_left_child(self):
+        # Given
+        node = _Node()
+        child = _Node()
+        node._left_child = child
+
+        # When
+        got = node.get_left_child()
+
+        # Then
+        self.assertEqual(got, child)
+
+    def test_get_right_child(self):
+        # Given
+        node = _Node()
+        child = _Node()
+        node._right_child = child
+
+        # When
+        got = node.get_right_child()
+
+        # Then
+        self.assertEqual(got, child)
+
+    def test_get_parent(self):
+        # Given
+        parent = _Node()
+        child = _Node(parent)
+        parent._left_child = child
+
+        # When
+        got = child.get_parent()
+
+        # Then
+        self.assertEqual(got, parent)
+#-------------------------------------------------------------------#
+
 class TestBST(unittest.TestCase):
 
     def test_create(self):
