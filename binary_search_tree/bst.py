@@ -1,13 +1,15 @@
 from __future__ import annotations
 from typing import Optional
+from numbers import Number
 
 class _Node:
 
-    def __init__(self, parent:_Node=None) -> None:
-
+    def __init__(self, value=None, parent:_Node=None) -> None:
+        assert value != None, "No value given!"
         self._left_child = None
         self._right_child = None
         self._parent = parent
+        self._value = value
 
     def set_left_child(self, child:_Node=None) -> None:
         assert isinstance(child, _Node) or\
