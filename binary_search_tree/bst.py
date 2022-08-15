@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Optional
 
 class _Node:
 
@@ -26,13 +27,13 @@ class _Node:
 
         self._parent = parent
 
-    def get_left_child(self) -> _Node:
+    def get_left_child(self) -> Optional[_Node]:
         return self._left_child
 
-    def get_right_child(self) -> _Node:
+    def get_right_child(self) -> Optional[_Node]:
         return self._right_child
 
-    def get_parent(self) -> _Node:
+    def get_parent(self) -> Optional[_Node]:
         return self._parent
 
 class BST:
