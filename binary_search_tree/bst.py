@@ -6,6 +6,7 @@ class _Node:
 
     def __init__(self, value=None, parent:_Node=None) -> None:
         assert value != None, "No value given!"
+        assert isinstance(value, Number), "Value given must be a number!"
         self._left_child = None
         self._right_child = None
         self._parent = parent

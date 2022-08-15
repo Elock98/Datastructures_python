@@ -10,10 +10,10 @@ class TestNode(unittest.TestCase):
 
     def test_create_root(self):
         # Given / When
-        node = _Node("foo")
+        node = _Node(1)
 
         # Then
-        self.assertEqual(node._value, "foo")
+        self.assertEqual(node._value, 1)
         self.assertEqual(node._left_child, None)
         self.assertEqual(node._right_child, None)
         self.assertEqual(node._parent, None)
@@ -21,14 +21,14 @@ class TestNode(unittest.TestCase):
 
     def test_create(self):
         # Given
-        root_node = _Node("foo")
+        root_node = _Node(1)
 
         # When
-        node = _Node("bar", root_node)
+        node = _Node(2, root_node)
 
         # Then
-        self.assertEqual(node._value, "bar")
-        self.assertEqual(node._parent._value, "foo")
+        self.assertEqual(node._value, 2)
+        self.assertEqual(node._parent._value, 1)
         self.assertEqual(node._left_child, None)
         self.assertEqual(node._right_child, None)
         self.assertEqual(node._parent, root_node)
@@ -41,12 +41,20 @@ class TestNode(unittest.TestCase):
         # Then
         self.assertEqual(str(ex.exception), "No value given!")
 
+    def test_create_bad_value(self):
+        # Given / When
+        with self.assertRaises(Exception) as ex:
+            node = _Node("foo")
+
+        # Then
+        self.assertEqual(str(ex.exception), "Value given must be a number!")
+
 #-------------------------------------------------------------------#
 
     def test_set_left_child(self):
         # Given
-        node = _Node("foo")
-        child_node = _Node("bar", node)
+        node = _Node(1)
+        child_node = _Node(2, node)
 
         # When
         node.set_left_child(child_node)
@@ -57,8 +65,8 @@ class TestNode(unittest.TestCase):
 
     def test_set_left_child_to_none(self):
         # Given
-        node = _Node("foo")
-        child_node = _Node("bar", node)
+        node = _Node(1)
+        child_node = _Node(2, node)
 
         # When
         node.set_left_child(None)
@@ -69,8 +77,8 @@ class TestNode(unittest.TestCase):
 
     def test_set_left_child_no_param(self):
         # Given
-        node = _Node("foo")
-        child_node = _Node("bar", node)
+        node = _Node(1)
+        child_node = _Node(2, node)
 
         # When
         node.set_left_child()
@@ -81,8 +89,8 @@ class TestNode(unittest.TestCase):
 
     def test_set_left_child_bad_param(self):
         # Given
-        node = _Node("foo")
-        child_node = _Node("bar", node)
+        node = _Node(1)
+        child_node = _Node(2, node)
 
         # When
         with self.assertRaises(Exception) as ex:
@@ -96,8 +104,8 @@ class TestNode(unittest.TestCase):
 
     def test_set_right_child(self):
         # Given
-        node = _Node("foo")
-        child_node = _Node("bar", node)
+        node = _Node(1)
+        child_node = _Node(2, node)
 
         # When
         node.set_right_child(child_node)
@@ -108,8 +116,8 @@ class TestNode(unittest.TestCase):
 
     def test_set_right_child_to_none(self):
         # Given
-        node = _Node("foo")
-        child_node = _Node("bar", node)
+        node = _Node(1)
+        child_node = _Node(2, node)
 
         # When
         node.set_right_child(None)
@@ -120,8 +128,8 @@ class TestNode(unittest.TestCase):
 
     def test_set_right_child_no_param(self):
         # Given
-        node = _Node("foo")
-        child_node = _Node("bar", node)
+        node = _Node(1)
+        child_node = _Node(2, node)
 
         # When
         node.set_right_child()
@@ -132,8 +140,8 @@ class TestNode(unittest.TestCase):
 
     def test_set_right_child_bad_param(self):
         # Given
-        node = _Node("foo")
-        child_node = _Node("bar", node)
+        node = _Node(1)
+        child_node = _Node(2, node)
 
         # When
         with self.assertRaises(Exception) as ex:
@@ -147,8 +155,8 @@ class TestNode(unittest.TestCase):
 
     def test_set_parent(self):
         # Given
-        parent = _Node("foo")
-        child = _Node("bar")
+        parent = _Node(1)
+        child = _Node(2)
         parent.set_left_child(child)
 
         # When
@@ -159,7 +167,7 @@ class TestNode(unittest.TestCase):
 
     def test_set_parent_to_none(self):
         # Given
-        child = _Node("foo")
+        child = _Node(1)
 
         # When
         child.set_parent(None)
@@ -169,7 +177,7 @@ class TestNode(unittest.TestCase):
 
     def test_set_parent_no_param(self):
         # Given
-        child = _Node("foo")
+        child = _Node(2)
 
         # When
         child.set_parent()
@@ -179,7 +187,7 @@ class TestNode(unittest.TestCase):
 
     def test_set_parent_bad_param(self):
         # Given
-        child = _Node("foo")
+        child = _Node(1)
 
         # When
         with self.assertRaises(Exception) as ex:
@@ -193,8 +201,8 @@ class TestNode(unittest.TestCase):
 
     def test_get_left_child(self):
         # Given
-        node = _Node("foo")
-        child = _Node("bar")
+        node = _Node(1)
+        child = _Node(2)
         node._left_child = child
 
         # When
@@ -205,8 +213,8 @@ class TestNode(unittest.TestCase):
 
     def test_get_right_child(self):
         # Given
-        node = _Node("foo")
-        child = _Node("bar")
+        node = _Node(1)
+        child = _Node(2)
         node._right_child = child
 
         # When
@@ -217,8 +225,8 @@ class TestNode(unittest.TestCase):
 
     def test_get_parent(self):
         # Given
-        parent = _Node("foo")
-        child = _Node("bar", parent)
+        parent = _Node(1)
+        child = _Node(2, parent)
         parent._left_child = child
 
         # When
