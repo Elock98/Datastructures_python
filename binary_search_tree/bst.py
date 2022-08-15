@@ -47,8 +47,35 @@ class BST:
     def __init__(self) -> None:
         self._root_node = None
 
-    def insert(self):
-        pass
+    def insert(self, value:Number=None, _comp_node:_Node=None) -> None:
+        assert value != None, "Nothing to insert!"
+        assert isinstance(value, Number), "Value must be number!"
+
+        if not self._root_node:
+            self._root_node = _Node(value=value)
+            return
+
+        if _comp_node == None:
+            _comp_node = self._root_node
+
+        if value < _comp_node.get_value():
+            if _comp_node.get_left_child():
+                self.insert(value, _comp_node.get_left_child())
+                return
+            else:
+                _comp_node.set_left_child(_Node(value=value))
+                return
+
+        if value > _comp_node.get_value():
+            if _comp_node.get_right_child():
+                self.insert(value, _comp_node.get_right_child())
+                return
+            else:
+                _comp_node.set_right_child(_Node(value=value))
+                return
+
+        raise ValueError("Value is already in BST!")
+
 
     def find(self):
         pass

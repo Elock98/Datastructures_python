@@ -260,6 +260,74 @@ class TestBST(unittest.TestCase):
 
 #-------------------------------------------------------------------#
 
+    def test_insert_root(self):
+        # Given
+        bst = BST()
+
+        # When
+        bst.insert(1)
+
+        # Then
+        self.assertEqual(bst._root_node._value, 1)
+
+    def test_insert_bad_value(self):
+        # Given
+        bst = BST()
+
+        # When
+        with self.assertRaises(Exception) as ex:
+            bst.insert("foo")
+
+        # Then
+        self.assertEqual(str(ex.exception), "Value must be number!")
+
+    def test_insert_nothing_given(self):
+        # Given
+        bst = BST()
+
+        # When
+        with self.assertRaises(Exception) as ex:
+            bst.insert()
+
+        # Then
+        self.assertEqual(str(ex.exception), "Nothing to insert!")
+
+    def test_insert_smaller(self):
+        # Given
+        bst = BST()
+        bst.insert(5)
+
+        # When
+        bst.insert(4)
+
+        # Then
+        self.assertEqual(bst._root_node._value, 5)
+        self.assertEqual(bst._root_node.get_left_child()._value, 4)
+
+    def test_insert_larger(self):
+        # Given
+        bst = BST()
+        bst.insert(5)
+
+        # When
+        bst.insert(6)
+
+        # Then
+        self.assertEqual(bst._root_node._value, 5)
+        self.assertEqual(bst._root_node.get_right_child()._value, 6)
+
+    def test_insert_same_value(self):
+        # Given
+        bst = BST()
+        bst.insert(5)
+
+        # When
+        with self.assertRaises(Exception) as ex:
+            bst.insert(5)
+
+        # Then
+        self.assertEqual(str(ex.exception), "Value is already in BST!")
+
 
 if __name__ == "__main__":
     unittest.main()
