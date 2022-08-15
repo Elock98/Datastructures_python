@@ -82,3 +82,6 @@ class BST:
 
     def delete(self):
         pass
+
+    def print_bst(self):
+        pass
