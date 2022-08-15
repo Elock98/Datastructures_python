@@ -41,7 +41,7 @@ class _Node:
 class BST:
 
     def __init__(self) -> None:
-        pass
+        self._root_node = None
 
     def insert(self):
         pass

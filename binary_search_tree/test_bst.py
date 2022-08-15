@@ -231,8 +231,16 @@ class TestNode(unittest.TestCase):
 
 class TestBST(unittest.TestCase):
 
+#-------------------------------------------------------------------#
+
     def test_create(self):
-        pass
+        # Given / When
+        bts = BST()
+
+        # Then
+        self.assertEqual(bts._root_node, None)
+
+#-------------------------------------------------------------------#
 
 
 if __name__ == "__main__":
