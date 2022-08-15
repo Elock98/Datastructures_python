@@ -39,6 +39,9 @@ class _Node:
     def get_parent(self) -> Optional[_Node]:
         return self._parent
 
+    def get_value(self) -> Number:
+        return self._value
+
 class BST:
 
     def __init__(self) -> None:

@@ -235,6 +235,16 @@ class TestNode(unittest.TestCase):
         # Then
         self.assertEqual(got, parent)
 
+    def test_get_value(self):
+        # Given
+        node = _Node(1)
+
+        # When
+        nr = node.get_value()
+
+        # Then
+        self.assertEqual(nr, 1)
+
 #-------------------------------------------------------------------#
 
 class TestBST(unittest.TestCase):
