@@ -85,8 +85,25 @@ class BST:
         raise ValueError("Key is already in BST!")
 
 
-    def find(self):
-        pass
+    def find(self, key:int=None, _current_node:_Node=None) -> None:
+        assert key != None, "No key given!"
+        assert isinstance(key, int), "Key must be a number!"
+
+        if _current_node == None:
+            _current_node = self._root_node
+
+        if key == _current_node.get_key():
+            return _current_node.get_value()
+
+        if key < _current_node.get_key() and\
+                _current_node.get_left_child() != None:
+            return self.find(key, _current_node.get_left_child())
+
+        if key > _current_node.get_key() and\
+                _current_node.get_right_child() != None:
+            return self.find(key, _current_node.get_right_child())
+
+        raise ValueError("Key not in BST!")
 
     def delete(self):
         pass

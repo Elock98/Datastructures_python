@@ -352,9 +352,99 @@ class TestBST(unittest.TestCase):
 
 #-------------------------------------------------------------------#
 
+    def test_find_root(self):
+        # Given
+        bst = BST()
+        bst.insert(5, "foo")
+        bst.insert(3, "bar")
+        bst.insert(4, "baz")
+        bst.insert(6, "far")
+        bst.insert(11, "faz")
+
+        # When
+        value = bst.find(5)
+
         # Then
-        self.assertEqual(str(ex.exception), "Value is already in BST!")
+        self.assertEqual(value, "foo")
 
+    def test_find_small(self):
+        # Given
+        bst = BST()
+        bst.insert(5, "foo")
+        bst.insert(3, "bar")
+        bst.insert(4, "baz")
+        bst.insert(6, "far")
+        bst.insert(11, "faz")
 
+        # When
+        value = bst.find(3)
+
+        # Then
+        self.assertEqual(value, "bar")
+
+    def test_find_large(self):
+        # Given
+        bst = BST()
+        bst.insert(5, "foo")
+        bst.insert(3, "bar")
+        bst.insert(4, "baz")
+        bst.insert(6, "far")
+        bst.insert(11, "faz")
+
+        # When
+        value = bst.find(11)
+
+        # Then
+        self.assertEqual(value, "faz")
+
+    def test_find_bad_key(self):
+        # Given
+        bst = BST()
+        bst.insert(5, "foo")
+        bst.insert(3, "bar")
+        bst.insert(4, "baz")
+        bst.insert(6, "far")
+        bst.insert(11, "faz")
+
+        # When
+        with self.assertRaises(Exception) as ex:
+            value = bst.find("bad_key")
+
+        # Then
+        self.assertEqual(str(ex.exception), "Key must be a number!")
+
+    def test_find_no_key_given(self):
+        # Given
+        bst = BST()
+        bst.insert(5, "foo")
+        bst.insert(3, "bar")
+        bst.insert(4, "baz")
+        bst.insert(6, "far")
+        bst.insert(11, "faz")
+
+        # When
+        with self.assertRaises(Exception) as ex:
+            value = bst.find()
+
+        # Then
+        self.assertEqual(str(ex.exception), "No key given!")
+
+    def test_find_not_in_BST(self):
+        # Given
+        bst = BST()
+        bst.insert(5, "foo")
+        bst.insert(3, "bar")
+        bst.insert(4, "baz")
+        bst.insert(6, "far")
+        bst.insert(11, "faz")
+
+        # When
+        with self.assertRaises(Exception) as ex:
+            value = bst.find(42)
+
+        # Then
+        self.assertEqual(str(ex.exception), "Key not in BST!")
+
+#-------------------------------------------------------------------#
 if __name__ == "__main__":
     unittest.main()
